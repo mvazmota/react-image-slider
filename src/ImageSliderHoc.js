@@ -34,7 +34,7 @@ export default function ImageSliderHoc(Component) {
         },
 
         skipScrollIfEnd: (visibleItems, currentPosition, nextPosition) => {
-          if (!options.isInfinite && nextPosition + visibleItems > options.totalItems) {
+          if (!options.isInfinite && nextPosition + visibleItems > options.totalItems + 3) {
             return currentPosition;
           }
           if (!options.isInfinite && nextPosition < 0) {
