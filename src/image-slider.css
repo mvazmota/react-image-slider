@@ -9,8 +9,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   transition: all 0.2s ease-in-out;
 }
 .rsc-slider-item {
@@ -53,7 +53,7 @@
 }
 .rsc-arrow_left {
   -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
 }
 @media screen and (min-width: 1280px) {
   .rsc-arrow_left,
