@@ -64,14 +64,16 @@ var Slider = function (_React$Component) {
         key: 'componentWillMount',
         value: function componentWillMount() {
             document.addEventListener('keydown', function (event){
-                let scrollPositive = this.props.verticalSlide?38:37;
-                let scrollNegative = this.props.verticalSlide?40:39;
-                if(this.props.isFocused )
-                    if (event.keyCode == scrollPositive) {
-                        this.scrollLeft();
-                    } else if (event.keyCode == scrollNegative){
-                        this.scrollRight();
-                    }
+                if(!this.props.disabled){
+                    let scrollPositive = this.props.verticalSlide?38:37;
+                    let scrollNegative = this.props.verticalSlide?40:39;
+                    if(this.props.isFocused )
+                        if (event.keyCode == scrollPositive) {
+                            this.scrollLeft();
+                        } else if (event.keyCode == scrollNegative){
+                            this.scrollRight();
+                        }
+                }
             }.bind(this), false);
         }
     }, {
