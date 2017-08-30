@@ -65,8 +65,8 @@ var Slider = function (_React$Component) {
         value: function componentWillMount() {
             document.addEventListener('keydown', function (event){
                 if(!this.props.disabled){
-                    let scrollPositive = this.props.verticalSlide?38:37;
-                    let scrollNegative = this.props.verticalSlide?40:39;
+                    var scrollPositive = this.props.verticalSlide?38:37;
+                    var scrollNegative = this.props.verticalSlide?40:39;
                     if(this.props.isFocused )
                         if (event.keyCode == scrollPositive) {
                             this.scrollLeft();
@@ -156,9 +156,6 @@ var Slider = function (_React$Component) {
                 this.props.onPositionChange(nextPosition);
             }
 
-
-
-            console.log(nextPosition);
 
             var skipScrollIfEnd = this.props.calculator.skipScrollIfEnd(visibleItems, currentPosition, nextPosition);
             var skipScrollIfNonInfinite = this.props.calculator.skipScrollIfNonInfinite(visibleItems, currentPosition, nextPosition);
