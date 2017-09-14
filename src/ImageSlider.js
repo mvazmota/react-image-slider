@@ -103,7 +103,6 @@ var Slider = function (_React$Component) {
     }, {
         key: 'scrollLeft',
         value: function scrollLeft() {
-            console.log("Bacalhau com pão");
             var currentPosition = this.updatePosition(this.state.currentPosition - 1);
             this.setState({ currentPosition: currentPosition });
         }
