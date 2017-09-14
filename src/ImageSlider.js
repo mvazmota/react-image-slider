@@ -1,10 +1,20 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }return function (Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+}();
 
 var _react = require('react');
 
@@ -14,13 +24,27 @@ var _ImageSliderHoc = require('./ImageSliderHoc');
 
 var _ImageSliderHoc2 = _interopRequireDefault(_ImageSliderHoc);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
 
 var Slider = function (_React$Component) {
     _inherits(Slider, _React$Component);
@@ -34,6 +58,7 @@ var Slider = function (_React$Component) {
         _this.scrollRight = _this.scrollRight.bind(_this);
         _this.updatePosition = _this.updatePosition.bind(_this);
         _this.setVisibleItems = _this.setVisibleItems.bind(_this);
+        _this.key = _this.key.bind(_this);
         _this.sliderStyle = _this.sliderStyle.bind(_this);
         _this.sliderStyleVertical = _this.sliderStyleVertical.bind(_this);
         _this.isOpaque = _this.isOpaque.bind(_this);
@@ -47,7 +72,6 @@ var Slider = function (_React$Component) {
         return _this;
     }
 
-
     _createClass(Slider, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
@@ -59,22 +83,12 @@ var Slider = function (_React$Component) {
         value: function componentWillUnmount() {
             this.clearAnimate();
             window.removeEventListener('resize', this.setVisibleItems.bind(this, this.props.visibleItems));
+            window.removeEventListener('keydown', this.key);
         }
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
-            document.addEventListener('keydown', function (event){
-                if(!this.props.disabled){
-                    var scrollPositive = this.props.verticalSlide?38:37;
-                    var scrollNegative = this.props.verticalSlide?40:39;
-                    if(this.props.isFocused )
-                        if (event.keyCode == scrollPositive) {
-                            this.scrollLeft();
-                        } else if (event.keyCode == scrollNegative){
-                            this.scrollRight();
-                        }
-                }
-            }.bind(this), false);
+            window.addEventListener('keydown', this.key);
         }
     }, {
         key: 'componentWillUpdate',
@@ -86,6 +100,7 @@ var Slider = function (_React$Component) {
     }, {
         key: 'scrollLeft',
         value: function scrollLeft() {
+            console.log("Bacalhau com pão");
             var currentPosition = this.updatePosition(this.state.currentPosition - 1);
             this.setState({ currentPosition: currentPosition });
         }
@@ -101,6 +116,19 @@ var Slider = function (_React$Component) {
             var container = document.querySelector('.rsc-slider');
             var visibleItems = container && container.offsetWidth < 720 ? 1 : currentVisibleItems;
             this.setState({ visibleItems: visibleItems });
+        }
+    }, {
+        key: 'key',
+        value: function key(event){
+            if (!this.props.disabled) {
+                var scrollPositive = this.props.verticalSlide ? 38 : 37;
+                var scrollNegative = this.props.verticalSlide ? 40 : 39;
+                if (this.props.isFocused) if (event.keyCode == scrollPositive) {
+                    this.scrollLeft();
+                } else if (event.keyCode == scrollNegative) {
+                    this.scrollRight();
+                }
+            }
         }
     }, {
         key: 'sliderStyle',
@@ -152,10 +180,9 @@ var Slider = function (_React$Component) {
                 visibleItems = _state.visibleItems,
                 currentPosition = _state.currentPosition;
 
-            if(nextPosition >= 0 && nextPosition <= this.props.children.length -1){
+            if (nextPosition >= 0 && nextPosition <= this.props.children.length - 1) {
                 this.props.onPositionChange(nextPosition);
             }
-
 
             var skipScrollIfEnd = this.props.calculator.skipScrollIfEnd(visibleItems, currentPosition, nextPosition);
             var skipScrollIfNonInfinite = this.props.calculator.skipScrollIfNonInfinite(visibleItems, currentPosition, nextPosition);
@@ -180,7 +207,7 @@ var Slider = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var sliderStyle = this.props.verticalSlide ? this.sliderStyleVertical('.rsc-slider-item') :this.sliderStyle('.rsc-slider-item');
+            var sliderStyle = this.props.verticalSlide ? this.sliderStyleVertical('.rsc-slider-item') : this.sliderStyle('.rsc-slider-item');
             var imgWidth = 100 / this.state.visibleItems;
             var images = this.props.children.map(function (item, key) {
                 return {
@@ -189,34 +216,11 @@ var Slider = function (_React$Component) {
                 };
             });
 
-            return _react2.default.createElement(
-                'div',
-                { className: 'rsc-container' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'rsc-slider', style: sliderStyle },
-                    images.map(function (item, key) {
-                        return _react2.default.createElement(
-                            'div',
-                            { className: item.itemClass, key: key, style: { 'flex': '0 0 ' + imgWidth + '%' } },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'rsc-slider-item-img' },
-                                item.src
-                            )
-                        );
-                    })
-                ),
-                images.length > this.state.visibleItems ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement('div', { className: 'rsc-navigation rsc-navigation_left rsc-arrow_left', onClick: this.scrollLeft }),
-                        _react2.default.createElement('div', { className: 'rsc-navigation rsc-navigation_right rsc-arrow_right', onClick: this.scrollRight })
-                    ) : null
-            );
+            return _react2.default.createElement('div', { className: 'rsc-container' }, _react2.default.createElement('div', { className: 'rsc-slider', style: sliderStyle }, images.map(function (item, key) {
+                return _react2.default.createElement('div', { className: item.itemClass, key: key, style: { 'flex': '0 0 ' + imgWidth + '%' } }, _react2.default.createElement('div', { className: 'rsc-slider-item-img' }, item.src));
+            })), images.length > this.state.visibleItems ? _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'rsc-navigation rsc-navigation_left rsc-arrow_left', onClick: this.scrollLeft }), _react2.default.createElement('div', { className: 'rsc-navigation rsc-navigation_right rsc-arrow_right', onClick: this.scrollRight })) : null);
         }
     }]);
-
 
     return Slider;
 }(_react2.default.Component);
