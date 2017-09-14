@@ -93,6 +93,9 @@ var Slider = function (_React$Component) {
     }, {
         key: 'componentWillUpdate',
         value: function componentWillUpdate(nextProps, nextState) {
+            if (this.props.changePosition !== nextProps.changePosition && this.props.changePosition) {
+                this.scrollLeft();
+            }
             if (this.state.currentPosition !== nextState.currentPosition) {
                 this.animate();
             }
